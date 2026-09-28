@@ -42,7 +42,7 @@ export default function Home() {
             <section id="theme" className="bg-black text-white px-6 md:px-24 py-24 border-b-2 border-neutral-900">
                 <h3 className="font-pixel text-brand uppercase tracking-[0.3em] mb-8">The Theme</h3>
                 <h2 className="text-5xl md:text-7xl font-black uppercase leading-[1.1] max-w-4xl tracking-tighter">
-                    Every mind is a tile.<br />
+                    Every mind is a tile<br />
                     Together they form the <br />
                     <span className="text-brand">Mosaic.</span>
                 </h2>
