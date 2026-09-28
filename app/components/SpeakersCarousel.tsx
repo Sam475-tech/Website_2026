@@ -3,24 +3,26 @@
 import React, { useState } from 'react';
 
 const SPEAKERS = [
-    { name: 'Speaker Name', role: 'Role / Field', talk: 'Talk title to be announced', image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?auto=format&fit=crop&w=600&h=800' },
-    { name: 'Speaker Name', role: 'Role / Field', talk: 'Talk title to be announced', image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=600&h=800' },
-    { name: 'Speaker Name', role: 'Role / Field', talk: 'Talk title to be announced', image: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&w=600&h=800' },
-    { name: 'Speaker Name', role: 'Role / Field', talk: 'Talk title to be announced', image: 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=600&h=800' },
-    { name: 'Speaker Name', role: 'Role / Field', talk: 'Talk title to be announced', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&h=800' },
-    { name: 'Speaker Name', role: 'Role / Field', talk: 'Talk title to be announced', image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&h=800' },
-    { name: 'Speaker Name', role: 'Role / Field', talk: 'Talk title to be announced', image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&w=600&h=800' },
+    { name: 'Anuj Pachhel', role: 'YouTuber / Doctor', talk: 'Talk title to be announced', image: '/speakers/Anuj_Pachhel.svg' },
+    { name: 'Apurva Nemlekar', role: 'Actress', talk: 'Talk title to be announced', image: '/speakers/Apurva_Nemlekar.svg' },
+    { name: 'Dinakar Nagalla', role: 'Entrepreneur', talk: 'Talk title to be announced', image: '/speakers/Dinakar_Nagalla.svg' },
+    { name: 'Dr. Ajit Kembhavi', role: 'Astrophysicist', talk: 'Talk title to be announced', image: '/speakers/Dr_Ajit_Kembhavi.svg' },
+    { name: 'Speaker 5', role: 'Role / Field', talk: 'Talk title to be announced', image: 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=600&h=800' },
+    { name: 'Speaker 6', role: 'Role / Field', talk: 'Talk title to be announced', image: 'https://images.unsplash.com/photo-1524504388940-b1c1722653e1?auto=format&fit=crop&w=600&h=800' },
 ];
 
 export default function SpeakersCarousel() {
-    const [active, setActive] = useState(3);
+    const [active, setActive] = useState(2);
     const last = SPEAKERS.length - 1;
 
     return (
         <section id="speakers" className="bg-cream text-black px-6 md:px-16 pt-16 pb-24 overflow-hidden">
             <div className="relative h-[420px] md:h-[460px] flex items-center justify-center" style={{ perspective: '1200px' }}>
                 {SPEAKERS.map((speaker, i) => {
-                    const offset = i - active;
+                    let offset = i - active;
+                    if (offset < -2) offset += SPEAKERS.length;
+                    if (offset > 3) offset -= SPEAKERS.length;
+                    
                     const isCenter = offset === 0;
                     const abs = Math.abs(offset);
                     if (abs > 3) return null;
@@ -35,6 +37,7 @@ export default function SpeakersCarousel() {
                                 transform: `translate(-50%, -50%) translateX(${offset * 155}px) rotateY(${offset * -18}deg) scale(${isCenter ? 1.18 : 0.92 - abs * 0.04})`,
                                 zIndex: 20 - abs,
                                 transformStyle: 'preserve-3d',
+                                transition: 'all 1000ms cubic-bezier(0.22, 1, 0.36, 1)',
                             }}
                             aria-current={isCenter ? 'true' : undefined}
                             aria-label={`${speaker.name} ${i + 1}`}
@@ -66,7 +69,7 @@ export default function SpeakersCarousel() {
             <div className="flex items-center justify-center gap-4 mt-6">
                 <button
                     type="button"
-                    onClick={() => setActive((i) => Math.max(0, i - 1))}
+                    onClick={() => setActive((i) => (i - 1 + SPEAKERS.length) % SPEAKERS.length)}
                     className="w-10 h-10 border-2 border-black bg-white hover:bg-black hover:text-white transition-colors"
                     aria-label="Previous speaker"
                 >
@@ -85,7 +88,7 @@ export default function SpeakersCarousel() {
                 </div>
                 <button
                     type="button"
-                    onClick={() => setActive((i) => Math.min(last, i + 1))}
+                    onClick={() => setActive((i) => (i + 1) % SPEAKERS.length)}
                     className="w-10 h-10 border-2 border-black bg-white hover:bg-black hover:text-white transition-colors"
                     aria-label="Next speaker"
                 >

@@ -26,7 +26,7 @@ export default function Hero() {
         <p className="text-xl md:text-2xl text-gray-200 mb-10 max-w-2xl font-light drop-shadow-md">
           Ideas that intersect, paths that diverge, and the moments that define our journey.
         </p>
-        
+
         <Link href="/sessions">
           <button className="bg-red-600 hover:bg-red-700 text-white font-bold py-4 px-10 rounded-full text-lg transition-all transform hover:scale-105 shadow-[0_0_20px_rgba(220,38,38,0.5)]">
             Explore Sessions

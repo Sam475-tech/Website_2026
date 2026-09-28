@@ -19,7 +19,7 @@ export default function PartnersSection() {
                     </p>
                     <p className="text-sm text-neutral-400 mt-4 max-w-sm">
                         Meandering in the Mosaic · TBA · 2026<br />
-                        Venue Name, Full venue address goes here
+                        Shantai Auditorium, DY Patil Education Complex, Akurdi.
                     </p>
                     <p className="text-xs text-neutral-500 mt-4 max-w-md">
                         This independent TEDx event is operated under license from TED.

@@ -1,6 +1,6 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useBooking } from '../context/BookingContext';
 
 const TIERS = [
@@ -10,7 +10,7 @@ const TIERS = [
         note: 'Limited quantity',
         featured: false,
         cta: 'Select Early Bird',
-        perks: ['Full-day access', 'Welcome kit', 'Netzworking lunch'],
+        perks: ['Full-day access', 'Welcome kit', 'Networking lunch'],
     },
     {
         name: 'Standard',
@@ -32,16 +32,70 @@ const TIERS = [
 
 export default function TicketTiers() {
     const { openBooking } = useBooking();
+    const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+    useEffect(() => {
+        let ticking = false;
+
+        const updateStyles = () => {
+            const windowHeight = window.innerHeight;
+
+            cardRefs.current.forEach((card, i) => {
+                if (!card) return;
+                const rect = card.getBoundingClientRect();
+                
+                // Stagger animations slightly based on index
+                const staggerOffset = i * 50;
+                const start = windowHeight - 50 - staggerOffset;
+                const end = windowHeight * 0.25 - staggerOffset; // Finishes much closer to the top of the screen
+                
+                let p = (start - rect.top) / (start - end);
+                p = Math.max(0, Math.min(1, p));
+                
+                // easeOutCubic for smooth deceleration
+                const easedP = 1 - Math.pow(1 - p, 3);
+
+                const scale = 0.85 + easedP * 0.15;
+                const opacity = 0.2 + easedP * 0.8;
+
+                card.style.transform = `scale(${scale})`;
+                card.style.opacity = `${opacity}`;
+            });
+            ticking = false;
+        };
+
+        const handleScroll = () => {
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    updateStyles();
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        window.addEventListener('resize', handleScroll, { passive: true });
+        
+        // Initial setup
+        updateStyles();
+
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            window.removeEventListener('resize', handleScroll);
+        };
+    }, []);
 
     return (
         <section id="tickets" className="bg-cream text-black px-6 md:px-24 py-24">
             <p className="font-pixel text-brand uppercase tracking-[0.3em] mb-4 text-center">Join the room</p>
             <h2 className="text-5xl md:text-7xl font-black uppercase tracking-tighter text-center mb-16">Ticket Tiers</h2>
 
-            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 border border-black">
+            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 border border-black overflow-hidden">
                 {TIERS.map((tier, i) => (
                     <div
                         key={tier.name}
+                        ref={(el) => { cardRefs.current[i] = el; }}
+                        style={{ willChange: 'transform, opacity' }}
                         className={`flex flex-col p-8 md:p-10 ${i !== 0 ? 'border-t md:border-t-0 md:border-l border-black' : ''} ${tier.featured ? 'bg-black text-white' : 'bg-white'}`}
                     >
                         <div className="flex items-start justify-between mb-6">
