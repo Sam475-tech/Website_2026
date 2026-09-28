@@ -34,6 +34,25 @@ export default function MosaicReveal() {
         setRevealedCount(0);
     }, [totalTiles]);
 
+    // --- NEW: The Nuclear Option to block mobile scrolling ---
+    useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+
+        // This intercepts the phone's native scroll engine and stops it
+        const preventMobileScroll = (e: TouchEvent) => {
+            e.preventDefault();
+        };
+
+        // { passive: false } is the magic key that forces the browser to listen to preventDefault()
+        container.addEventListener('touchmove', preventMobileScroll, { passive: false });
+
+        return () => {
+            container.removeEventListener('touchmove', preventMobileScroll);
+        };
+    }, []);
+    // --------------------------------------------------------
+
     const scratchAtCoordinates = (clientX: number, clientY: number) => {
         if (!containerRef.current || tiles.length === 0) return;
 
@@ -47,8 +66,8 @@ export default function MosaicReveal() {
         const col = Math.floor((x / rect.width) * columns);
         const row = Math.floor((y / rect.height) * rows);
 
-        // Brush radius (clears a 3x3 block around finger for effortless mobile swiping)
-        const brushRadius = 1; 
+        // INCREASED brush radius (clears a massive 5x5 block around finger for super easy mobile swiping)
+        const brushRadius = 2; 
         const indicesToClear: number[] = [];
 
         for (let r = row - brushRadius; r <= row + brushRadius; r++) {
@@ -90,6 +109,18 @@ export default function MosaicReveal() {
         setIsDragging(false);
     };
 
+    // --- NEW: Explicit Touch Handlers for bulletproof mobile support ---
+    const handleTouchStart = (e: React.TouchEvent) => {
+        setIsDragging(true);
+        scratchAtCoordinates(e.touches[0].clientX, e.touches[0].clientY);
+    };
+
+    const handleTouchMove = (e: React.TouchEvent) => {
+        if (!isDragging) return;
+        scratchAtCoordinates(e.touches[0].clientX, e.touches[0].clientY);
+    };
+    // ------------------------------------------------------------------
+
     const handleReset = () => {
         const resetTiles = tiles.map(t => ({ ...t, visible: true }));
         setTiles(resetTiles);
@@ -106,7 +137,12 @@ export default function MosaicReveal() {
                 onPointerMove={handlePointerMove}
                 onPointerUp={handlePointerUp}
                 onPointerLeave={handlePointerUp}
+                // ADDED explicit touch handlers for mobile devices
+                onTouchStart={handleTouchStart}
+                onTouchMove={handleTouchMove}
+                onTouchEnd={handlePointerUp}
                 className="relative w-full aspect-[747/567] bg-black overflow-hidden border-2 border-neutral-800 touch-none select-none cursor-pointer"
+                style={{ touchAction: 'none' }} // <-- ADDED THIS INLINE STYLE
             >
                 {/* The Base Image */}
                 <div className="absolute inset-0 z-0 pointer-events-none">
