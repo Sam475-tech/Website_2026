@@ -57,24 +57,6 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
                 {children}
             </main>
 
-            {/* Footer sticky bar */}
-            <footer className="bg-cream text-black border-t-2 border-black py-4 px-6 md:px-12 flex justify-between items-center z-30">
-                <div>
-                    <h4 className="font-bold text-lg">Meandering in the Mosaic</h4>
-                    <p className="text-xs font-pixel text-gray-600 uppercase tracking-widest mt-1">6 Oct 2026 • DYP Akurdi</p>
-                </div>
-
-                <div className="flex gap-4 items-center">
-                    <button
-                        type="button"
-                        onClick={() => openBooking('Standard')}
-                        className="bg-brand text-white font-bold uppercase tracking-wider text-sm px-6 py-3 border-2 border-black flex items-center hover:bg-red-700 transition-all duration-300 ease-out shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[4px] hover:translate-y-[4px] active:scale-95 cursor-pointer group"
-                    >
-                        Book Tickets <span className="ml-2 transition-transform duration-300 group-hover:translate-x-1">→</span>
-                    </button>
-                </div>
-            </footer>
-
             {/* Slide-over Booking Checkout Drawer */}
             <BookingDrawer />
         </div>

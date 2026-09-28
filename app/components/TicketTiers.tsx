@@ -5,28 +5,29 @@ import { useBooking } from '../context/BookingContext';
 
 const TIERS = [
     {
-        name: 'Early Bird',
-        price: '₹XXX',
+        name: 'Morning',
+        price: 'Rs.79',
         note: 'Limited quantity',
         featured: false,
-        cta: 'Select Early Bird',
-        perks: ['Full-day access', 'Welcome kit', 'Networking lunch'],
+        cta: 'Select Morning',
+        speakers: ['Adil Nargolwala', 'Ajit Kembhavi', 'Apurva Nemlekar'],
     },
     {
-        name: 'Standard',
-        price: '₹XXX',
+        name: 'Full Day',
+        price: 'Rs.99',
         note: 'Most popular',
         featured: true,
-        cta: 'Select Standard',
-        perks: ['Full-day access', 'Welcome kit', 'Networking lunch', 'Reserved seating'],
+        cta: 'Select Full Day',
+        speakers: ['Adil Nargolwala', 'Ajit Kembhavi', 'Apurva Nemlekar', 'Dinakara Nagalla', 'Anuj Pachhel', 'Sonali Sonawane', 'Band Performance'],
     },
     {
-        name: 'Patron',
-        price: '₹XXX',
-        note: 'Front row experience',
+        name: 'Evening',
+        price: 'Rs.79',
+        note: 'Limited quantity',
         featured: false,
-        cta: 'Select Patron',
-        perks: ['Front-row seating', 'Premium kit', 'Speaker meet & greet', 'After-party access'],
+        cta: 'Select Evening',
+        speakers: ['Dinakara Nagalla', 'Anuj Pachhel', 'Sonali Sonawane', 'Band Performance'],
+
     },
 ];
 
@@ -43,15 +44,15 @@ export default function TicketTiers() {
             cardRefs.current.forEach((card, i) => {
                 if (!card) return;
                 const rect = card.getBoundingClientRect();
-                
+
                 // Stagger animations slightly based on index
                 const staggerOffset = i * 50;
                 const start = windowHeight - 50 - staggerOffset;
                 const end = windowHeight * 0.25 - staggerOffset; // Finishes much closer to the top of the screen
-                
+
                 let p = (start - rect.top) / (start - end);
                 p = Math.max(0, Math.min(1, p));
-                
+
                 // easeOutCubic for smooth deceleration
                 const easedP = 1 - Math.pow(1 - p, 3);
 
@@ -75,7 +76,7 @@ export default function TicketTiers() {
 
         window.addEventListener('scroll', handleScroll, { passive: true });
         window.addEventListener('resize', handleScroll, { passive: true });
-        
+
         // Initial setup
         updateStyles();
 
@@ -116,10 +117,10 @@ export default function TicketTiers() {
                             {tier.note}
                         </p>
                         <ul className="space-y-3 mb-10 flex-1">
-                            {tier.perks.map((perk) => (
-                                <li key={perk} className="flex gap-2 text-sm">
+                            {tier.speakers.map((speaker) => (
+                                <li key={speaker} className="flex gap-2 text-sm">
                                     <span className={tier.featured ? 'text-brand' : ''}>✓</span>
-                                    {perk}
+                                    {speaker}
                                 </li>
                             ))}
                         </ul>
