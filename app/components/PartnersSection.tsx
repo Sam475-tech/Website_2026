@@ -18,7 +18,7 @@ export default function PartnersSection() {
                         <span className="text-brand">TED</span>x
                     </p>
                     <p className="text-sm text-neutral-400 mt-4 max-w-sm">
-                        Meandering in the Mosaic · TBA · 2026<br />
+                        Meandering in the Mosaic · 6 Oct 2026 · 2026<br />
                         Shantai Auditorium, DY Patil Education Complex, Akurdi.
                     </p>
                     <p className="text-xs text-neutral-500 mt-4 max-w-md">

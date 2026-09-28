@@ -33,7 +33,7 @@ export default function Home() {
                         Diverse, fragmented ideas wander, collide, and lock together to form a larger picture.
                     </p>
                     <div className="flex gap-8 mt-10 font-pixel text-sm text-brand uppercase">
-                        <span>📅 TBA • 2026</span>
+                        <span>📅 6 Oct 2026</span>
                         <span>📍DYPAKURDI</span>
                     </div>
                 </Reveal>
