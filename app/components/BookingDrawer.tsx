@@ -4,11 +4,12 @@ import Script from 'next/script';
 import { useRouter } from 'next/navigation';
 import React, { useState, useEffect } from 'react';
 import { useBooking } from '../context/BookingContext';
+import { Evening_Seesion, Full_Day_Session, Morning_Session } from '@/lib/const';
 
 const TICKET_TIERS = [
-    { id: 'early-bird', name: 'Early Bird', price: '₹XXX', numericPrice: 499 },
-    { id: 'standard', name: 'Standard', price: '₹XXX', numericPrice: 799 },
-    { id: 'patron', name: 'Patron', price: '₹XXX', numericPrice: 1499 },
+    { id: Morning_Session, name: 'Morning Session', price: '₹XXX', numericPrice: 499 },
+    { id: Evening_Seesion, name: 'Evening Session', price: '₹XXX', numericPrice: 799 },
+    { id: Full_Day_Session, name: 'Full Day', price: '₹XXX', numericPrice: 1499 },
 ];
 
 export default function BookingDrawer() {
@@ -85,7 +86,7 @@ export default function BookingDrawer() {
                     email: formData.email,
                     phone: formData.phone,
                     ticketCount: 1,
-                    selectedSessions: [currentTier.id],
+                    selectedSessions: [String(currentTier.id)],
                 }),
             }).catch(() => null);
 
