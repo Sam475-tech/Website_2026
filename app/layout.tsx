@@ -16,7 +16,15 @@ const vt323 = VT323({
 export const metadata: Metadata = {
   title: "TEDx DYPAKURDI - Mosaic",
   description: "Every mind is a tile. Together they form the mosaic.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico" },
+      { url: "/icon.png", type: "image/png" },
+    ],
+    apple: "/apple-icon.png",
+  },
 };
+
 
 export default function RootLayout({
   children,
