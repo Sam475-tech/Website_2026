@@ -14,18 +14,19 @@ const BookingContext = createContext<BookingContextType | undefined>(undefined);
 
 export function BookingProvider({ children }: { children: React.ReactNode }) {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedTier, setSelectedTier] = useState('Standard');
+    const [selectedTier, setSelectedTier] = useState('Morning Session');
 
     const openBooking = (tierName?: string) => {
         if (tierName) {
-            // If the tierName contains one of our known tiers, normalize it
             const lower = tierName.toLowerCase();
-            if (lower.includes('early')) {
-                setSelectedTier('Early Bird');
-            } else if (lower.includes('patron')) {
-                setSelectedTier('Patron');
+            if (lower.includes('morning')) {
+                setSelectedTier('Morning Session');
+            } else if (lower.includes('evening')) {
+                setSelectedTier('Evening Session');
+            } else if (lower.includes('full')) {
+                setSelectedTier('Full Day');
             } else {
-                setSelectedTier('Standard');
+                setSelectedTier(tierName);
             }
         }
         setIsOpen(true);

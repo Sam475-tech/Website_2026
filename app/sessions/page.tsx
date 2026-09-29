@@ -13,8 +13,8 @@ export default async function SessionsPage() {
     } catch (error) {
         console.error("Failed to fetch sessions:", error);
         sessions = [
-            { id: 'morning', title: 'Morning Session', speakers: ['Featured Speakers'], day: 1, timeLabel: '09:00 AM - 01:00 PM IST', price: 499, isActive: true },
-            { id: 'evening', title: 'Evening Session', speakers: ['Featured Speakers'], day: 1, timeLabel: '02:00 PM - 06:00 PM IST', price: 499, isActive: true }
+            { id: 'morning', title: 'Morning Session', speakers: ['Featured Speakers'], day: 1, timeLabel: '09:00 AM - 01:00 PM IST', price: 79, isActive: true },
+            { id: 'evening', title: 'Evening Session', speakers: ['Featured Speakers'], day: 1, timeLabel: '02:00 PM - 06:00 PM IST', price: 79, isActive: true }
         ];
     }
 
