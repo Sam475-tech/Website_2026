@@ -34,6 +34,26 @@ export default function UserFriendlyBooking() {
     const handleCreateOrder = async (e: React.FormEvent) => {
         e.preventDefault();
         setError('');
+
+        if (!formData.name.trim()) {
+            setError('Please enter your full name.');
+            return;
+        }
+
+        const emailTrimmed = formData.email.trim();
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailTrimmed || !emailRegex.test(emailTrimmed)) {
+            setError('Please enter a valid email address (e.g. name@example.com).');
+            return;
+        }
+
+        const rawPhone = formData.phone.trim();
+        const digitsOnly = rawPhone.replace(/\D/g, '');
+        if (!/^\d{10}$/.test(rawPhone) && !/^\d{10}$/.test(digitsOnly)) {
+            setError('Please enter a valid 10-digit mobile number without +91 or country code.');
+            return;
+        }
+
         setLoading(true);
 
         try {
@@ -44,9 +64,9 @@ export default function UserFriendlyBooking() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
-                    phone: formData.phone,
+                    name: formData.name.trim(),
+                    email: emailTrimmed,
+                    phone: digitsOnly,
                     ticketCount: Number(formData.ticketCount),
                     selectedSessions: [formData.sessionId],
                 }),
@@ -144,17 +164,31 @@ export default function UserFriendlyBooking() {
                             <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Email</label>
                             <input
                                 name="email" type="email" required value={formData.email} onChange={handleChange}
+                                placeholder="you@email.com"
                                 className="w-full bg-black border border-zinc-800 p-4 text-white focus:outline-none focus:border-[#eb0028]"
                             />
+                            <p className="text-[11px] text-zinc-400 mt-1.5 leading-snug">
+                                <span className="text-[#eb0028] font-bold">Note:</span> Please enter a valid email address. Your tickets and receipts will be sent here.
+                            </p>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">
                             <div>
                                 <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Phone</label>
                                 <input
-                                    name="phone" type="tel" required value={formData.phone} onChange={handleChange}
+                                    name="phone"
+                                    type="tel"
+                                    required
+                                    maxLength={10}
+                                    pattern="[0-9]{10}"
+                                    placeholder="9876543210"
+                                    value={formData.phone}
+                                    onChange={handleChange}
                                     className="w-full bg-black border border-zinc-800 p-4 text-white focus:outline-none focus:border-[#eb0028]"
                                 />
+                                <p className="text-[11px] text-zinc-400 mt-1.5 leading-snug">
+                                    <span className="text-[#eb0028] font-bold">Note:</span> Please enter only your 10-digit mobile number without +91 or country prefix.
+                                </p>
                             </div>
                             <div>
                                 <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Tickets</label>

@@ -62,12 +62,18 @@ export default function BookingDrawer() {
             setError('Please enter your full name.');
             return;
         }
-        if (!formData.email.trim() || !formData.email.includes('@')) {
-            setError('Please enter a valid email address.');
+
+        const emailTrimmed = formData.email.trim();
+        const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!emailTrimmed || !emailRegex.test(emailTrimmed)) {
+            setError('Please enter a valid email address (e.g. name@example.com).');
             return;
         }
-        if (!formData.phone.trim()) {
-            setError('Please enter your phone number.');
+
+        const rawPhone = formData.phone.trim();
+        const digitsOnly = rawPhone.replace(/\D/g, '');
+        if (!/^\d{10}$/.test(rawPhone) && !/^\d{10}$/.test(digitsOnly)) {
+            setError('Please enter a valid 10-digit mobile number without +91 or country code.');
             return;
         }
 
@@ -82,9 +88,9 @@ export default function BookingDrawer() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    name: formData.name,
-                    email: formData.email,
-                    phone: formData.phone,
+                    name: formData.name.trim(),
+                    email: emailTrimmed,
+                    phone: digitsOnly,
                     ticketCount: 1,
                     selectedSessions: [String(currentTier.id)],
                 }),
@@ -285,6 +291,9 @@ export default function BookingDrawer() {
                                 required
                                 className="w-full bg-white border-2 border-black p-3.5 px-4 text-black text-sm md:text-base placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-black"
                             />
+                            <p className="text-[11px] text-neutral-600 mt-1.5 leading-snug">
+                                <span className="text-brand font-bold">Note:</span> Please enter a valid email address. Your tickets and receipts will be sent here.
+                            </p>
                         </div>
 
                         {/* Phone */}
@@ -297,10 +306,15 @@ export default function BookingDrawer() {
                                 name="phone"
                                 value={formData.phone}
                                 onChange={handleChange}
-                                placeholder="+91 00000 00000"
+                                placeholder="9876543210"
+                                maxLength={10}
+                                pattern="[0-9]{10}"
                                 required
                                 className="w-full bg-white border-2 border-black p-3.5 px-4 text-black text-sm md:text-base placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-black"
                             />
+                            <p className="text-[11px] text-neutral-600 mt-1.5 leading-snug">
+                                <span className="text-brand font-bold">Note:</span> Please enter only your 10-digit mobile number without +91 or country prefix.
+                            </p>
                         </div>
                     </div>
 
