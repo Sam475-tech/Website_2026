@@ -164,8 +164,12 @@ export default function UserFriendlyBooking() {
                             <label className="block text-xs font-bold uppercase tracking-widest text-zinc-500 mb-2">Email</label>
                             <input
                                 name="email" type="email" required value={formData.email} onChange={handleChange}
+                                placeholder="you@email.com"
                                 className="w-full bg-black border border-zinc-800 p-4 text-white focus:outline-none focus:border-[#eb0028]"
                             />
+                            <p className="text-[11px] text-zinc-400 mt-1.5 leading-snug">
+                                <span className="text-[#eb0028] font-bold">Note:</span> Please enter a valid email address. Your tickets and receipts will be sent here.
+                            </p>
                         </div>
 
                         <div className="grid grid-cols-2 gap-4">

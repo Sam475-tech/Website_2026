@@ -291,6 +291,9 @@ export default function BookingDrawer() {
                                 required
                                 className="w-full bg-white border-2 border-black p-3.5 px-4 text-black text-sm md:text-base placeholder:text-neutral-400 focus:outline-none focus:ring-1 focus:ring-black"
                             />
+                            <p className="text-[11px] text-neutral-600 mt-1.5 leading-snug">
+                                <span className="text-brand font-bold">Note:</span> Please enter a valid email address. Your tickets and receipts will be sent here.
+                            </p>
                         </div>
 
                         {/* Phone */}
