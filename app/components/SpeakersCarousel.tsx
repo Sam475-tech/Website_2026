@@ -48,7 +48,7 @@ export default function SpeakersCarousel() {
                                     <img
                                         src={speaker.image}
                                         alt=""
-                                        className="absolute inset-0 h-full w-full object-cover grayscale"
+                                        className={`absolute inset-0 h-full w-full object-cover transition-[filter] duration-500 ease-out ${isCenter ? 'grayscale-0' : 'grayscale'}`}
                                     />
                                 </div>
                                 <div className="px-3 py-3">

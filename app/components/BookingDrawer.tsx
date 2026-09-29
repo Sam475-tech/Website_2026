@@ -7,9 +7,9 @@ import { useBooking } from '../context/BookingContext';
 import { Evening_Seesion, Full_Day_Session, Morning_Session } from '@/lib/const';
 
 const TICKET_TIERS = [
-    { id: Morning_Session, name: 'Morning Session', price: '₹XXX', numericPrice: 499 },
-    { id: Evening_Seesion, name: 'Evening Session', price: '₹XXX', numericPrice: 799 },
-    { id: Full_Day_Session, name: 'Full Day', price: '₹XXX', numericPrice: 1499 },
+    { id: Morning_Session, name: 'Morning Session', price: '₹79', numericPrice: 79 },
+    { id: Evening_Seesion, name: 'Evening Session', price: '₹79', numericPrice: 79 },
+    { id: Full_Day_Session, name: 'Full Day', price: '₹99', numericPrice: 99 },
 ];
 
 export default function BookingDrawer() {

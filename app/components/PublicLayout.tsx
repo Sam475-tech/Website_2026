@@ -11,14 +11,6 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
     return (
         <div className="min-h-screen bg-black flex flex-col text-white font-sans overflow-x-hidden">
-            {/* Cinematic Spotlight Overlay */}
-            <div
-                className="fixed inset-0 pointer-events-none z-20 transition-opacity duration-300"
-                style={{
-                    background: 'linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 25%, rgba(0,0,0,0) 75%, rgba(0,0,0,0.8) 100%)'
-                }}
-                aria-hidden="true"
-            />
 
             {/* Cream Navbar */}
             <header className="bg-cream text-black py-2 px-3 md:py-4 md:px-12 flex justify-between items-center border-b-[4px] md:border-b-[8px] border-black sticky top-0 z-30">
@@ -45,7 +37,7 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
                 <button
                     type="button"
-                    onClick={() => openBooking('Standard')}
+                    onClick={() => openBooking('Morning Session')}
                     className="bg-brand text-white font-bold uppercase tracking-wider text-[10px] md:text-sm px-3 py-2 md:px-6 md:py-3 border-2 border-black hover:bg-red-700 transition-all duration-300 ease-out shadow-[2px_2px_0px_0px_rgba(0,0,0,1)] md:shadow-[4px_4px_0px_0px_rgba(0,0,0,1)] hover:shadow-none hover:translate-x-[2px] hover:translate-y-[2px] md:hover:translate-x-[4px] md:hover:translate-y-[4px] active:scale-95 cursor-pointer"
                 >
                     Book Tickets
